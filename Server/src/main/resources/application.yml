@@ -1,19 +1,27 @@
 server:
   port: 8443
   ssl:
-    enabled: false
+    enabled: true
     keyAlias: server
-    keyStore: classpath:keyStore.jceks
-    keyStorePassword: password
-    trustStore: classpath:keyStore.jceks
-    trustStorePassword: password
-    clientAuth: NEED
+    key-password: password
+    key-store: classpath:keyStore.jceks
+    key-store-password: password
+    key-store-type: jceks
+#    trustStore: classpath:keyStore.jceks
+#    trustStorePassword: password
+#    clientAuth: NEED
 #    protocol: TLS
 #    enabledProtocols: TLSv1.2
 #    ciphers: TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384
-  servlet:
-    session:
-      timeout: 15m
+#  servlet:
+#    session:
+#      timeout: 15m
 logging:
   level:
     org.springframework.security: DEBUG
+
+
+#spring:
+#  autoconfigure:
+#    exclude[0]: org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+#    exclude[1]: org.springframework.boot.actuate.autoconfigure.security.servlet.ManagementWebSecurityAutoConfiguration
