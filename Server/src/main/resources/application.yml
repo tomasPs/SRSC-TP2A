@@ -2,15 +2,15 @@ server:
   port: 8443
   ssl:
     enabled: false
-    keyStore: classpath:server.jks
-    trustStore: classpath:server.jks
+    keyAlias: server
+    keyStore: classpath:keyStore.jceks
     keyStorePassword: password
+    trustStore: classpath:keyStore.jceks
     trustStorePassword: password
-    keyAlias: servercert
     clientAuth: NEED
-    protocol: TLS
-    enabledProtocols: TLSv1.2
-    ciphers: TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384
+#    protocol: TLS
+#    enabledProtocols: TLSv1.2
+#    ciphers: TLS_ECDH_ECDSA_WITH_AES_256_CBC_SHA384
   servlet:
     session:
       timeout: 15m
