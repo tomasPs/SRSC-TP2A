@@ -36,7 +36,7 @@ public class test {
     }
 
     public static void main(String[] args) throws Exception {
-        Certificate chain = keyStore.getCert("user1 (rootca)");
+        Certificate chain = keyStore.getCert("user (rootca)");
         X509Certificate ca = trustStore.getCert("rootca");
 
         try {

@@ -16,13 +16,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
             .anyRequest().permitAll()
             .and()
-            .headers().frameOptions().sameOrigin();
-//            .authorizeRequests()
-//            .anyRequest().permitAll()
-//            .and()
-//            .requiresChannel().anyRequest().requiresSecure()
-//            .and()
-//            .sessionManagement()
-//            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+            .headers().frameOptions().sameOrigin()
+            .and()
+            .requiresChannel().anyRequest().requiresSecure()
+            .and()
+            .sessionManagement()
+            .sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
     }
 }

@@ -1,5 +1,6 @@
 package root.model;
 
+import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import root.dto.CreateRequest;
 
@@ -28,7 +29,8 @@ public class User {
 
     public User(int id, JsonElement description) {
         this.id = id;
-        this.description = new UserDescription(description);
+        Gson gson = new Gson();
+        this.description = gson.fromJson(description, UserDescription.class);
     }
 
     public UserDescription getDescription() {

@@ -23,10 +23,12 @@ public class UserDescription {
 
     public UserDescription(CreateRequest request) {
         this.uuid = request.getUuid();
+        this.secData = new SecData(request);
     }
 
     public UserDescription(JsonElement description) {
         uuid = description.getAsJsonObject().get("uuid").getAsString();
+        this.secData = new SecData(description);
     }
 
     public String getUuid() {

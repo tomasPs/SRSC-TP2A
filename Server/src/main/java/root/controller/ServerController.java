@@ -28,11 +28,12 @@ public class ServerController {
 
     @PostMapping("/create")
     CreateResponse create(@RequestBody CreateRequest request) {
-        int id = userService.createUser(new User(request)).getId();
+        User user = new User(request);
+        int id = userService.createUser(user).getId();
         return new CreateResponse(id);
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     ListResponse list(@RequestBody ListRequest request) {
         if (request.getId() == 0)
             return new ListResponse(userService.getAllUsers());
@@ -44,7 +45,7 @@ public class ServerController {
         return new ListResponse(users);
     }
 
-    @GetMapping("/new")
+    @PostMapping("/new")
     NewResponse newRequest(@RequestBody NewRequest request) {
         User user = checkAndGetUser(request.getId());
 
@@ -52,7 +53,7 @@ public class ServerController {
         return new NewResponse(result);
     }
 
-    @GetMapping("/all")
+    @PostMapping("/all")
     AllResponse all(@RequestBody AllRequest request) {
         User user = checkAndGetUser(request.getId());
 
@@ -75,7 +76,7 @@ public class ServerController {
         return new SendResponse(reply);
     }
 
-    @GetMapping("/recv")
+    @PostMapping("/recv")
     RecvResponse recv(@RequestBody RecvRequest request) {
         User from = checkAndGetUser(request.getId());
 
@@ -87,12 +88,12 @@ public class ServerController {
             throw new ServerErrorException("Could not find message");
         }
 
-        List<String> reply = messageService.recvMessage(from,msg);
+        List<String> reply = messageService.recvMessage(from, msg);
 
         return new RecvResponse(reply);
     }
 
-    @PutMapping("/receipt")
+    @PostMapping("/receipt")
     void receipt(@RequestBody ReceiptRequest request) {
         User user = checkAndGetUser(request.getId());
 
@@ -104,24 +105,42 @@ public class ServerController {
             throw new ServerErrorException("Could not find message or message has not been read yet");
         }
 
-        messageService.storeReceipt(user,msg,receipt);
+        messageService.storeReceipt(user, msg, receipt);
     }
 
-    @GetMapping("/status")
-    StatusResponse status(@RequestBody StatusRequest request)
-    {
+    @PostMapping("/status")
+    StatusResponse status(@RequestBody StatusRequest request) {
         User user = checkAndGetUser(request.getId());
         String msg = request.getMsg();
 
-        if (!messageService.copyExists(user,msg))
-        {
+        if (!messageService.copyExists(user, msg)) {
             System.err.print("Unknown message for 'status' request: " + request);
             throw new ServerErrorException("Could not find message");
         }
 
-        Status status = messageService.getReceipts(user,msg);
+        Status status = messageService.getReceipts(user, msg);
         return new StatusResponse(status);
+    }
 
+    @GetMapping("/pubKey/{id:[0-9]+}")
+    String getPubKey(
+        @PathVariable int id
+    ) {
+        return checkAndGetUser(id).getDescription().getSecData().getPublicKey();
+    }
+
+    @GetMapping("/pubDH/{id:[0-9]+}")
+    String getPubDH(
+        @PathVariable int id
+    ) {
+        return checkAndGetUser(id).getDescription().getSecData().getPublicDH();
+    }
+
+    @GetMapping("/prvDH/{id:[0-9]+}")
+    String getPrvDH(
+        @PathVariable int id
+    ) {
+        return checkAndGetUser(id).getDescription().getSecData().getPrivateDH();
     }
 
     private User checkAndGetUser(int id) {

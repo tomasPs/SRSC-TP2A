@@ -1,4 +1,4 @@
-keyStore: keyStore.jceks
+keyStore: keyStore2.jceks
 keyStorePassword: password
 trustStore: trustStore.jceks
 trustStorePassword: password
