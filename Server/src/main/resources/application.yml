@@ -1,25 +1,36 @@
 server:
   port: 8443
-  ssl:
-    enabled: true
-    keyAlias: server
-    key-password: password
-    key-store: classpath:keyStore.jceks
-    key-store-password: password
-    key-store-type: jceks
-    trust-store: classpath:trustStore.jceks
-    trust-store-password: password
-    trust-store-type: jceks
-    clientAuth: NEED
-#    protocol: TLS
-    enabledProtocols: TLSv1.2,TLSv1.3
-    ciphers: TLS_AES_256_GCM_SHA384,ECDHE-RSA-AES256-GCM-SHA384
+#  ssl:
+#    enabled: false
+#    keyAlias: server (rootca)
+#    key-password: password
+#    key-store: classpath:keyStore.jceks
+#    key-store-password: password
+#    key-store-type: jceks
+#    trust-store: classpath:trustStore.jceks
+#    trust-store-password: password
+#    trust-store-type: jceks
+#    clientAuth: WANT
+#    enabledProtocols: TLSv1.2,TLSv1.3
+#    ciphers: TLS_AES_256_GCM_SHA384,ECDHE-RSA-AES256-GCM-SHA384
 #  servlet:
 #    session:
-#      timeout: 15m
-logging:
+#      timeout: 5
+#      cookie:
+#        max-age: 2
+#        secure: true
   level:
     org.springframework.security: DEBUG
+
+spring:
+  datasource:
+    initialize: true
+  jpa:
+    generate-dll: true
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
 
 #spring:

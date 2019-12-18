@@ -1,0 +1,15 @@
+keyStore: keyStore.jceks
+keyStorePassword: password
+trustStore: trustStore.jceks
+trustStorePassword: password
+authMode: MUTUAL
+#  - CLIENT-ONLY
+#  - SERVER-ONLY
+#  - MUTUAL
+serverCert: server_RootCA_.cer
+protocols:
+  - TLSv1.2
+  - TLSv1.3
+cipherSuites:
+  - TLS_AES_256_GCM_SHA384
+  - TLS_RSA_WITH_AES_256_CBC_SHA256
